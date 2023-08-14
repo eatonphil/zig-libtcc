@@ -9,7 +9,7 @@ const tcc = @cImport(@cInclude("libtcc.h"));
 const program =
     \\#include <stdio.h>
     \\void hello_world() {
-    \\  printf("Hello, World!");
+    \\  printf("Hello, from C compiled dynamically from Zig!\n");
     \\}
 ;
 
