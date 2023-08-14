@@ -1,3 +1,5 @@
+// Port of https://github.com/TinyCC/tinycc/blob/mob/tests/libtcc_test.c to Zig.
+
 const std = @import("std");
 
 const assert = std.debug.assert;
@@ -24,7 +26,6 @@ pub fn main() !void {
     assert(tcc.tcc_get_error_func(s) == null);
     assert(tcc.tcc_get_error_opaque(s) == null);
 
-    // TODO: TCC error handling
     tcc.tcc_set_error_func(s, null, handle_error);
     assert(tcc.tcc_get_error_func(s) == handle_error);
     assert(tcc.tcc_get_error_opaque(s) == null);
@@ -48,8 +49,8 @@ pub fn main() !void {
     const func_opaque = tcc.tcc_get_symbol(s, "hello_world") orelse {
         return error.CouldNotGetSymbol;
     };
-    const func: *const fn () void = @alignCast(@ptrCast(func_opaque));
+    const hello_world: *const fn () void = @alignCast(@ptrCast(func_opaque));
 
     // run the code
-    func();
+    hello_world();
 }
